@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Итоговый отчёт за месяц работы — Центры доктора Бубновского</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --primary: #0A7B6F;
+  --primary-light: #0EA391;
+  --primary-dark: #065C53;
+  --accent: #E8F5F3;
+  --accent2: #F0FAF8;
+  --dark: #1A2332;
+  --text: #2D3748;
+  --text-light: #64748B;
+  --white: #FFFFFF;
+  --border: #E2E8F0;
+  --gradient: linear-gradient(135deg, #0A7B6F 0%, #0EA391 50%, #14B8A6 100%);
+  --gradient-dark: linear-gradient(135deg, #065C53 0%, #0A7B6F 100%);
+  --red: #E53E3E;
+  --green: #38A169;
+  --orange: #DD6B20;
+  --yellow: #D69E2E;
+  --shadow: 0 4px 20px rgba(10, 123, 111, 0.10);
+  --shadow-lg: 0 8px 40px rgba(10, 123, 111, 0.15);
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text);
+  background: #F7FAFA;
+  line-height: 1.65;
+  font-size: 15px;
+}
+
+@media (min-width: 1025px) {
+  body { overflow: hidden; height: 100vh; background: #0f1117; }
+  .slide {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    padding: 40px 60px;
+    background: var(--white);
+    position: relative;
+    overflow-y: auto;
+  }
+  .slide.active { display: flex; flex-direction: column; }
+  .nav {
+    position: fixed;
+    bottom: 24px;
+    right: 30px;
+    z-index: 100;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .nav button {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    background: var(--white);
+    color: var(--primary);
+    cursor: pointer;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .nav button:hover { background: var(--primary); color: var(--white); }
+  .nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+  .nav .counter { font-size: 13px; color: var(--text-light); font-weight: 500; min-width: 60px; text-align: center; }
+}
+
+@media (max-width: 1024px) {
+  .slide { display: block !important; padding: 32px 20px; border-bottom: 3px solid var(--primary); }
+  .nav { display: none; }
+}
+
+/* ─── TITLE SLIDE ─── */
+.slide-title {
+  background: var(--gradient);
+  color: var(--white);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.slide-title::before {
+  content: '';
+  position: absolute;
+  top: -30%; right: -15%;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: -25%; left: -10%;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.title-content { position: relative; z-index: 2; max-width: 860px; }
+.slide-title h1 {
+  font-size: clamp(36px, 4.6vw, 56px);
+  font-weight: 900;
+  line-height: 1.18;
+  margin: 16px 0 18px;
+  letter-spacing: -1.2px;
+}
+.slide-title .subtitle {
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 400;
+  opacity: 0.92;
+  line-height: 1.55;
+  margin-top: 14px;
+}
+.slide-title .divider {
+  width: 80px; height: 4px;
+  background: rgba(255,255,255,0.5);
+  margin: 20px auto;
+  border-radius: 2px;
+}
+.slide-title .meta {
+  margin-top: 28px;
+  font-size: 14px;
+  opacity: 0.85;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.slide-title .badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.18);
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.slide-title .author {
+  margin-top: 42px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255,255,255,0.25);
+  font-size: 15px;
+  opacity: 0.9;
+}
+.slide-title .author b { font-weight: 700; }
+
+/* ─── CONTENT SLIDE ─── */
+.slide-content {
+  background: var(--white);
+}
+.slide-header {
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 2px solid var(--accent);
+}
+.slide-header .tag {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--primary-dark);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 13px;
+  border-radius: 100px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.slide-header h2 {
+  font-size: clamp(24px, 2.6vw, 32px);
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+}
+.slide-header h2 .campaign-name {
+  background: var(--accent);
+  color: var(--primary-dark);
+  padding: 2px 12px;
+  border-radius: 8px;
+  border: 2px solid var(--primary-light);
+  white-space: nowrap;
+  font-weight: 800;
+  display: inline-block;
+}
+.slide-header .lead {
+  margin-top: 8px;
+  font-size: 15px;
+  color: var(--text-light);
+}
+.slide-body { flex: 1; }
+
+/* ─── BEFORE/AFTER COMPARISON ─── */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  height: 100%;
+}
+.compare-card {
+  background: #FAFAFA;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+}
+.compare-card.before { border-top: 4px solid var(--red); }
+.compare-card.after { border-top: 4px solid var(--green); }
+.compare-card .lbl {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.compare-card.before .lbl { color: var(--red); }
+.compare-card.after .lbl { color: var(--green); }
+.compare-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.compare-card .sublabel {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 14px;
+}
+.compare-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+/* ─── DRY-NUMBERS GRID ─── */
+.dry-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+.dry-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr) minmax(220px, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+.dry-row .label {
+  background: var(--accent);
+  padding: 18px 22px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 4px solid var(--primary);
+}
+.dry-row .label .name {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--primary-dark);
+  margin-bottom: 3px;
+}
+.dry-row .label .small {
+  font-size: 12px;
+  color: var(--text-light);
+  font-weight: 400;
+}
+.dry-row .val {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.dry-row .val .lbl {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.dry-row .val.before { border-left: 4px solid var(--red); }
+.dry-row .val.before .lbl { color: var(--red); }
+.dry-row .val.after { border-left: 4px solid var(--green); background: linear-gradient(135deg, #F0FDF4 0%, #ECFDF5 100%); }
+.dry-row .val.after .lbl { color: var(--green); }
+.dry-row .val .num {
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 900;
+  color: var(--dark);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+.dry-row .val .extra {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-top: 4px;
+  font-weight: 500;
+}
+.dry-row .val.after .num { color: var(--primary-dark); }
+.dry-row .delta {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 6px;
+  margin-top: 6px;
+  width: fit-content;
+}
+.dry-row .delta.good { background: #DCFCE7; color: var(--green); }
+.dry-row .delta.bad { background: #FEE2E2; color: var(--red); }
+
+.dry-note {
+  margin-top: 22px;
+  padding: 14px 20px;
+  background: #FFFBEB;
+  border-left: 4px solid var(--yellow);
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.55;
+}
+.dry-note b { color: #92400E; }
+
+.verify-note {
+  margin-top: 18px;
+  padding: 22px 26px;
+  background: var(--gradient);
+  color: #fff;
+  border-radius: 12px;
+  font-size: clamp(15px, 1.55vw, 19px);
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.45;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+
+/* ─── CHECKLIST ─── */
+.checklist {
+  display: grid;
+  gap: 10px;
+}
+.check-item {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 14px;
+  padding: 16px 20px;
+  background: #F8FAFA;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  align-items: start;
+}
+.check-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.check-text { font-size: 14.5px; line-height: 1.5; }
+.check-text .title {
+  font-weight: 600;
+  color: var(--dark);
+  display: block;
+  margin-bottom: 3px;
+}
+.check-text .desc {
+  font-size: 13.5px;
+  color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+  .compare-grid { grid-template-columns: 1fr; }
+  .dry-row { grid-template-columns: 1fr; }
+  .dry-row .label { border-left: none; border-top: 4px solid var(--primary); }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ SLIDE 1: TITLE ============ -->
+<section class="slide slide-title active" id="s1">
+  <div class="title-content">
+    <h1>Отчёт о работе Павла<br>по продвижению Центров доктора Бубновского</h1>
+    <div class="divider"></div>
+    <div class="subtitle">
+      Сравнение «до меня vs со мной» по равным периодам 29 дней.
+    </div>
+    <div class="meta">Период работ: 17 апреля — 15 мая 2026</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 2: РАСХОДЫ — БЫЛО vs СТАЛО ============ -->
+<section class="slide slide-content" id="s2">
+  <div class="slide-header">
+    <span class="tag">Расходы в Директе — общие</span>
+    <h2>Расходы по всем рекламным кампаниям за равные периоды (29 дней)</h2>
+    <p class="lead">
+      Слева — расход за 29 дней до начала моих работ. Справа — расход за 29 дней моих работ.
+    </p>
+  </div>
+  <div class="slide-body">
+    <div class="compare-grid">
+      <div class="compare-card before">
+        <div class="lbl">Было — до меня</div>
+        <h3>Расходы в Директе</h3>
+        <div class="sublabel">19.03.2026 — 16.04.2026 (29 дней)</div>
+        <img src="kartinki/расход 19.03 - 16.04.png" alt="Расходы Директа 19.03 — 16.04">
+      </div>
+      <div class="compare-card after">
+        <div class="lbl">Стало — со мной</div>
+        <h3>Расходы в Директе</h3>
+        <div class="sublabel">17.04.2026 — 15.05.2026 (29 дней)</div>
+        <img src="kartinki/расход 17.04 - 15.05.png" alt="Расходы Директа 17.04 — 15.05">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 3: [S] КЛИНИКА БУБНОВСКОГО — СУХИЕ ЦИФРЫ ============ -->
+<section class="slide slide-content" id="s3">
+  <div class="slide-header">
+    <h2>Главная кампания клиники <span class="campaign-name">[S] Клиника Бубновского</span> — изменение за месяц моих работ</h2>
+    <p class="lead">
+      Сравнение по равным периодам (29 дней): «до меня» (19.03 — 16.04) vs «со мной» (17.04 — 15.05).
+    </p>
+  </div>
+  <div class="slide-body">
+
+    <div class="dry-grid">
+
+      <div class="dry-row">
+        <div class="label">
+          <div class="name">Бюджет</div>
+          <div class="small">Сколько потрачено за 29 дней</div>
+        </div>
+        <div class="val before">
+          <div class="lbl">Было</div>
+          <div class="num">429 195,14 ₽</div>
+        </div>
+        <div class="val after">
+          <div class="lbl">Стало</div>
+          <div class="num">327 988,51 ₽</div>
+          <span class="delta good">−101 206,63 ₽ · −23,6%</span>
+        </div>
+      </div>
+
+      <div class="dry-row">
+        <div class="label">
+          <div class="name">CTR (среднее)</div>
+          <div class="small">Кликабельность объявлений</div>
+        </div>
+        <div class="val before">
+          <div class="lbl">Было</div>
+          <div class="num">2,9%</div>
+        </div>
+        <div class="val after">
+          <div class="lbl">Стало</div>
+          <div class="num">3,9%</div>
+          <span class="delta good">+1,0 п.п. · +34%</span>
+        </div>
+      </div>
+
+      <div class="dry-row">
+        <div class="label">
+          <div class="name">Конверсии</div>
+          <div class="small">Записи клиентов в клинику + клики по номеру телефона (звонки)</div>
+        </div>
+        <div class="val before">
+          <div class="lbl">Было</div>
+          <div class="num">86 шт</div>
+          <div class="extra">конверсия 3,5%</div>
+        </div>
+        <div class="val after">
+          <div class="lbl">Стало</div>
+          <div class="num">160 шт</div>
+          <div class="extra">конверсия 7,7%</div>
+          <span class="delta good">+74 шт · +86%</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="dry-note">
+      <b>Конверсии</b> — это записи клиентов в клинику через формы на сайте + клики по номеру телефона (переход в звонок).
+    </div>
+
+    <div class="verify-note">
+      Все данные взяты с отчёта, который можно выгрузить в Директе и всё перепроверить.
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ SLIDE 4: ЧЕК-ЛИСТ ПО ДОГОВОРУ ============ -->
+<section class="slide slide-content" id="s4">
+  <div class="slide-header">
+    <span class="tag">Договор · Приложение 1</span>
+    <h2>Выполнение работ по договору</h2>
+    <p class="lead">
+      Чек-лист по пунктам из приложения 1 к договору.
+    </p>
+  </div>
+  <div class="slide-body">
+    <div class="checklist">
+
+      <div class="check-item">
+        <div class="check-mark">✓</div>
+        <div class="check-text">
+          <span class="title">Запуск 2 (двух) новых рекламных кампаний по выбранным направлениям</span>
+          <span class="desc">Сделано. Запущены кампании «Коксартроз» и «Гонартроз» — обе работают.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-mark">✓</div>
+        <div class="check-text">
+          <span class="title">Базовая оптимизация кампании «Клиника Бубновский»: отключение автотаргетинга, чистка неэффективных ключевых слов</span>
+          <span class="desc">Сделано. Результаты — на предыдущем слайде.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-mark">✓</div>
+        <div class="check-text">
+          <span class="title">Остановка неэффективных действующих кампаний</span>
+          <span class="desc">Сделано.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-mark">✓</div>
+        <div class="check-text">
+          <span class="title">Тестирование объявлений, анализ эффективности</span>
+          <span class="desc">A/B-тестирование работает. На всех кампаниях созданы разные группы и разные объявления для проверки — какая лучше будет приносить конверсии.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-mark">✓</div>
+        <div class="check-text">
+          <span class="title">Отслеживание статистики и корректировка кампаний (плюс-слова, минус-слова)</span>
+          <span class="desc">Сделано. Регулярные проходы по отчётам поисковых запросов с добавлением минус-слов.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-mark">✓</div>
+        <div class="check-text">
+          <span class="title">Работа с сайтом по взятым направлениям</span>
+          <span class="desc">Сделано. Страницы созданы.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-mark">✓</div>
+        <div class="check-text">
+          <span class="title">Переработка 2 (двух) посадочных страниц сайта по выбранным направлениям</span>
+          <span class="desc">Сделано. Страницы по коксартрозу и гонартрозу переработаны с нуля.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-mark">✓</div>
+        <div class="check-text">
+          <span class="title">Оптимизация мобильной версии перерабатываемых страниц</span>
+          <span class="desc">Сделано.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-mark">✓</div>
+        <div class="check-text">
+          <span class="title">Улучшение конверсии посадочных страниц</span>
+          <span class="desc">Сделано. Было тестирование в плане исключения цены ознакомительного курса; добавление всех положительных отзывов в правильном порядке; добавление акционного баннера.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-mark">✓</div>
+        <div class="check-text">
+          <span class="title">Аналитика поведения посетителей на переработанных страницах</span>
+          <span class="desc">Сделано. Вебвизор был настроен мной сразу, всё корректно работает.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-mark">✓</div>
+        <div class="check-text">
+          <span class="title">Анализ сайтов конкурентов — посадочные страницы конкурирующих клиник, выявление эффективных решений для последующего внедрения</span>
+          <span class="desc">Сделано. Страницы конкурентов просмотрены. Скриншот с фразой «Имеются противопоказания» со страницы Бубновского пересылался Юлии — если есть сомнения, что я не изучал страницы конкурентов. Также изучены страницы и карточки в Яндексе других центров — на основе анализа собраны 2 свои версии лендингов.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-mark">✓</div>
+        <div class="check-text">
+          <span class="title">Переработка страницы «Акции» — при наличии времени (не обязательная часть)</span>
+          <span class="desc">Сделано. Черновик переработанной страницы отправлен на согласование.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Navigation -->
+<div class="nav">
+  <button id="prev">‹</button>
+  <span class="counter" id="counter">1 / 4</span>
+  <button id="next">›</button>
+</div>
+
+<script>
+(function() {
+  var slides = document.querySelectorAll('.slide');
+  var current = 0;
+  var counter = document.getElementById('counter');
+  var prevBtn = document.getElementById('prev');
+  var nextBtn = document.getElementById('next');
+
+  function show(i) {
+    if (i < 0 || i >= slides.length) return;
+    slides[current].classList.remove('active');
+    slides[i].classList.add('active');
+    current = i;
+    counter.textContent = (i + 1) + ' / ' + slides.length;
+    prevBtn.disabled = (i === 0);
+    nextBtn.disabled = (i === slides.length - 1);
+  }
+  prevBtn.addEventListener('click', function() { show(current - 1); });
+  nextBtn.addEventListener('click', function() { show(current + 1); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(current + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); show(current - 1); }
+  });
+  show(0);
+})();
+</script>
+
+</body>
+</html>
